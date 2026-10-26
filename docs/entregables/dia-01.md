@@ -17,20 +17,20 @@ revision_docente: "PENDIENTE"
 
 | Campo obligatorio | Dato |
 |---|---|
-| Fecha y horario de esta sesión | [2026-10-26; 9:00–12:00, 180 min] |
-| Nombre / alias del equipo | [jamón] |
-| Misión / plataforma | [M01 mini-sumo autónomo] |
-| Objetivo verificable del robot (una frase) | [Detectar y empujar al robot oponente fuera del dohyō oficial (77 cm de diámetro) de forma 100% autónoma en un tiempo máximo de 30 segundos sin rebasar la línea blanca de borde.] |
-| **Dōjō asignado — campus, edificio y sala/taller exactos** | **[Campus León / Edificio CCI / Sala o taller ARTEMIS / Nº de laboratorio ]** |
-| Puesto o zona dentro del dōjō | [Mesa, banco, dohyō o estación] |
-| Horario / reserva confirmada | [26 de octubre, 2026; 11:30] |
-| Responsable del espacio y contacto institucional | [Héctor Javier Arismendi Valle, hector.arismendi@tec.mx] |
-| Acceso, aforo y ajustes de accesibilidad | [Horario de 6:00-10:00, 28 personas, dojo minisumo, extensiones, mesas, sillas] |
-| Salidas, botiquín, extintor y punto de reunión | [Extintor junto a puerta principal CCI, Botiquín en entrada Artemis] |
-| Zonas segregadas por riesgo | [N/A] |
-| Ubicación de materiales y resguardo nocturno | [Taller Artemis, MakerSpace; Melissa Zúñiga Miranda] |
-| Plan de sustitución si falla el espacio | [Taller CTA] |
-| Instructor o supervisor presente en la sesión | [@ProfCDuqueTec / Camilo René Duque Becerra] |
+| Fecha y horario de esta sesión | 2026-10-26; 9:00–12:00, 180 min |
+| Nombre / alias del equipo | jamón |
+| Misión / plataforma | M01 mini-sumo autónomo |
+| Objetivo verificable del robot (una frase) | Detectar y empujar al robot oponente fuera del dohyō oficial (77 cm de diámetro) de forma 100% autónoma en un tiempo máximo de 30 segundos sin rebasar la línea blanca de borde. |
+| **Dōjō asignado — campus, edificio y sala/taller exactos** | **Campus León / Edificio CCI / Sala o taller ARTEMIS** |
+| Puesto o zona dentro del dōjō | Mesa, banco, dohyō o estación |
+| Horario / reserva confirmada | 26 de octubre, 2026; 11:30 |
+| Responsable del espacio y contacto institucional | Héctor Javier Arismendi Valle, hector.arismendi@tec.mx |
+| Acceso, aforo y ajustes de accesibilidad | Horario de 6:00-10:00, 28 personas, dojo minisumo, extensiones, mesas, sillas |
+| Salidas, botiquín, extintor y punto de reunión | Extintor junto a puerta principal CCI, Botiquín en entrada Artemis |
+| Zonas segregadas por riesgo | N/A |
+| Ubicación de materiales y resguardo nocturno | Taller Artemis, MakerSpace; Melissa Zúñiga Miranda |
+| Plan de sustitución si falla el espacio | Taller CTA |
+| Instructor o supervisor presente en la sesión | @ProfCDuqueTec / Camilo René Duque Becerra |
 
 > ⛔ **No se permite avanzar a pruebas físicas sin dōjō concreto y autorización del responsable.** No inventar salón, número de laboratorio ni recursos que no hayan sido confirmados.
 
