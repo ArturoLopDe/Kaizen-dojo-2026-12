@@ -39,7 +39,7 @@ revision_docente: "PENDIENTE"
 | Alias GitHub | Rol inicial | Carta y frontera (D/S/E; F1–F4) | Alcances ID (1–3) | Kit personal (archivo) | Necesidad de apoyo o accesibilidad acordada |
 |---|---|---|---|---|---|
 | @ArturoLopDe | Pruebas y documentación | S - F3 - C2 | MS01 | [`../../participantes/alias/compromiso.md`](https://github.com/ArturoLopDe/Kaizen-dojo-2026-12/blob/877291e4d2149f269798aebd85ed7786a9f97909/participantes/ArturoLopDe/compromiso-kaizen-juan-arturo-lopez-delgado.md) | [Acordar con la persona sin registrar datos sensibles] |
-| @melissa | Integración y pruebas | S - F3 - C2 | MS01 | participantes/MelissaZúñigaMiranda/compromiso.md | [...] |
+| @melissa | Integración y pruebas | S - F3 - C2 | MS01 | [`../../participantes/alias/compromiso.md`]participantes/MelissaZúñigaMiranda/compromiso.md | [...] |
 
 **Acuerdo de colaboración:** [Cómo se toman decisiones, cómo se resuelven conflictos, apoyos senpai–kōhai, pausas y distribución equitativa de participación.]
 
