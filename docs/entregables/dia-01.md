@@ -17,20 +17,20 @@ revision_docente: "PENDIENTE"
 
 | Campo obligatorio | Dato |
 |---|---|
-| Fecha y horario de esta sesión | [AAAA-MM-DD; HH:MM–HH:MM, 180 min] |
-| Nombre / alias del equipo | [kd26-mXX-equipoYY] |
-| Misión / plataforma | [M01 mini-sumo autónomo / M03 seguidor / M04 Tello Python / M05 AMR ROS 2] |
+| Fecha y horario de esta sesión | [2026-10-26; 9:00–12:00, 180 min] |
+| Nombre / alias del equipo | [jamón] |
+| Misión / plataforma | [M01 mini-sumo autónomo] |
 | Objetivo verificable del robot (una frase) | [Acción + condiciones + éxito] |
-| **Dōjō asignado — campus, edificio y sala/taller exactos** | **[Campus ___ / Edificio ___ / Sala o taller ___ / Nº de laboratorio ___]** |
-| Puesto o zona dentro del dōjō | [Mesa, banco, espacio de vuelo, pista, dohyō o estación] |
-| Horario / reserva confirmada | [Fechas y bloque horario; quien la autorizó] |
-| Responsable del espacio y contacto institucional | [Nombre/cargo y canal institucional, sin publicar teléfonos privados] |
-| Acceso, aforo y ajustes de accesibilidad | [Restricciones de ingreso, capacidad, adecuaciones necesarias] |
+| **Dōjō asignado — campus, edificio y sala/taller exactos** | **[Campus León / Edificio CCI / Sala o taller ARTEMIS / Nº de laboratorio ]** |
+| Puesto o zona dentro del dōjō | [Mesa, banco, dohyō o estación] |
+| Horario / reserva confirmada | [26 de octubre, 2026; 11:30] |
+| Responsable del espacio y contacto institucional | [Héctor Javier Arismendi Valle, hector.arismendi@tec.mx] |
+| Acceso, aforo y ajustes de accesibilidad | [Horario de 6:00-10:00, 28 personas, dojo minisumo, extensiones, mesas, sillas] |
 | Salidas, botiquín, extintor y punto de reunión | [Ubicación real validada al llegar] |
-| Zonas segregadas por riesgo | [Vuelo / herramientas / tránsito AMR / ensayo de pista] |
-| Ubicación de materiales y resguardo nocturno | [Gabinete/estante/inventario; responsable] |
-| Plan de sustitución si falla el espacio | [Dōjō alternativo con autorización; no improvisar espacio de vuelo] |
-| Instructor o supervisor presente en la sesión | [@alias / nombre institucional] |
+| Zonas segregadas por riesgo | [N/A] |
+| Ubicación de materiales y resguardo nocturno | [Taller Artemis, MakerSpace; Melissa Zúñiga Miranda] |
+| Plan de sustitución si falla el espacio | [Taller CTA] |
+| Instructor o supervisor presente en la sesión | [@Prof / Camilo René Duque Becerra] |
 
 > ⛔ **No se permite avanzar a pruebas físicas sin dōjō concreto y autorización del responsable.** No inventar salón, número de laboratorio ni recursos que no hayan sido confirmados.
 
