@@ -1,1 +1,41 @@
+// =====================================================
+// PRUEBA DE AVANCE RECTO CONTINUO - XMOTION V3
+// =====================================================
 
+#include <xmotionV3.h>
+
+// ---------------- CALIBRACION DE MOTORES ----------------
+// Ajusta si se desvía a los lados:
+// - Si se va a la DERECHA: reduce CALIB_L o aumenta CALIB_R.
+// - Si se va a la IZQUIERDA: aumenta CALIB_L o reduce CALIB_R.
+const int CALIB_R = 20;  // Potencia motor izquierdo (0 a 255)
+const int CALIB_L = 30;  // Potencia motor derecho (0 a 255)
+
+const byte Led1 = 8; // LED indicador en D8
+
+// Función para mover motores usando los valores de calibración
+void driveCalibrated(int percentLeft, int percentRight) {
+  int speedL = map(percentLeft, -100, 100, -CALIB_L, CALIB_L);
+  int speedR = map(percentRight, -100, 100, -CALIB_R, CALIB_R);
+  xmotion.MotorControl(speedL, speedR);
+}
+
+void setup() {
+  pinMode(Led1, OUTPUT);
+  xmotion.StopMotors(1);
+  
+  // Pausa inicial de seguridad (2 segundos) antes de arrancar
+  for (int i = 0; i < 4; i++) {
+    digitalWrite(Led1, HIGH);
+    delay(250);
+    digitalWrite(Led1, LOW);
+    delay(250);
+  }
+
+  digitalWrite(Led1, HIGH); // LED encendido = Motores activos
+}
+
+void loop() {
+  // Avanza todo derecho al 100% de la velocidad calibrada
+  driveCalibrated(100, 100);
+}
