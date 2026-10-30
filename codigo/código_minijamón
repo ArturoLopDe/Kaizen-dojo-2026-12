@@ -1,1 +1,389 @@
+#include <xmotionV3.h>
 
+// =====================================================
+// MINISUMO 750 RPM - XMOTION V3
+// MODO DEFENSA: ESCANEO PIVOTANTE EN SU LUGAR + VELOCIDAD ALTA
+// =====================================================
+
+// ---------------- CALIBRACION DE MOTORES (MÁS VELOCIDAD) --------------
+const int CALIB_L = 160; 
+const int CALIB_R = 107;
+
+// ---------------- PINOUT HARDWARE ---------------------
+const byte PIN_DIP_MODE = 5;  // DIP Switch (D5)
+
+// Sensores de oponente JS40F
+const byte LeftSensor          = 4;   // D4 - Frontal Izq
+const byte LeftDiagonalSensor  = 2;   // D2 - Diag Izq
+const byte RightDiagonalSensor = A4;  // A4 - Diag Der
+const byte RightSensor         = 1;   // Pin 1 - Frontal Der
+
+// Sensores de línea QTR-1RC
+const byte LeftLine            = A5;  // A5 - QTR Izquierdo
+const byte RightLine           = A2;  // A2 - QTR Derecho
+
+// Módulo Arrancador / Microstart
+const byte StarterPin          = A1;  // A1 - Señal del Arrancador
+
+// LED integrado
+const byte Led1                = 8;   // D8
+
+// ---------------- CONFIGURACION -----------------------
+const byte OPPONENT_DETECTED   = HIGH;
+const byte MODE_DEFENSE        = LOW;
+const byte STARTER_ACTIVE      = HIGH;
+
+const bool DEBUG_MODE_LED      = true;
+
+// Umbrales QTR-1RC calibrados
+const unsigned int THRESHOLD_QTR_LEFT  = 1000;
+const unsigned int THRESHOLD_QTR_RIGHT = 1000;
+const unsigned int QTR_TIMEOUT_US      = 2500;
+
+// Velocidades de operación incrementadas
+const int ATTACK_SPEED  = 100;
+const int DEFENSE_SPEED = 100;
+const int ALIGN_SPEED   = 45;  // Giro de encuadre más rápido
+const int ESCAPE_SPEED  = 95;  // Retroceso de escape veloz
+
+// ---------------- VARIABLES ---------------------------
+int lastTargetSide = 0; 
+unsigned long lastTargetTime = 0; 
+
+// Variables de escaneo
+bool searchLeftStep = true;
+int searchCounter = 0;
+
+bool defenseLeftStep = true;
+int defenseCounter = 0;
+
+// =====================================================
+// CONTROL DE MOTORES
+// =====================================================
+
+void driveCalibrated(int percentLeft, int percentRight) {
+  percentLeft  = constrain(percentLeft, -100, 100);
+  percentRight = constrain(percentRight, -100, 100);
+
+  int speedL = map(percentLeft, -100, 100, -CALIB_L, CALIB_L);
+  int speedR = map(percentRight, -100, 100, -CALIB_R, CALIB_R);
+
+  xmotion.MotorControl(speedL, speedR);
+}
+
+void stopRobot() {
+  xmotion.StopMotors(1);
+}
+
+// =====================================================
+// LECTURA DE SENSORES DE OPONENTE
+// =====================================================
+
+bool opponentFrontLeft() {
+  return digitalRead(LeftSensor) == OPPONENT_DETECTED;
+}
+
+bool opponentFrontRight() {
+  return digitalRead(RightSensor) == OPPONENT_DETECTED;
+}
+
+bool opponentDiagLeft() {
+  return digitalRead(LeftDiagonalSensor) == OPPONENT_DETECTED;
+}
+
+bool opponentDiagRight() {
+  return digitalRead(RightDiagonalSensor) == OPPONENT_DETECTED;
+}
+
+bool opponentFrontAny() {
+  return opponentFrontLeft() || opponentFrontRight();
+}
+
+bool anyOpponentDetected() {
+  return opponentFrontAny() || opponentDiagLeft() || opponentDiagRight();
+}
+
+// =====================================================
+// LECTURA DE QTR-1RC
+// =====================================================
+
+unsigned int readQTR(byte pin) {
+  pinMode(pin, OUTPUT);
+  digitalWrite(pin, HIGH);
+  delayMicroseconds(10);
+
+  pinMode(pin, INPUT);
+  unsigned long startTime = micros();
+
+  while (digitalRead(pin) == HIGH) {
+    if (micros() - startTime >= QTR_TIMEOUT_US) {
+      return QTR_TIMEOUT_US;
+    }
+  }
+
+  return (unsigned int)(micros() - startTime);
+}
+
+bool leftEdgeDetected() {
+  return readQTR(LeftLine) < THRESHOLD_QTR_LEFT;
+}
+
+bool rightEdgeDetected() {
+  return readQTR(RightLine) < THRESHOLD_QTR_RIGHT;
+}
+
+// =====================================================
+// EVASION DE BORDE
+// =====================================================
+
+bool checkAndEscapeEdge() {
+  bool leftEdge  = leftEdgeDetected();
+  bool rightEdge = rightEdgeDetected();
+
+  if (!leftEdge && !rightEdge) {
+    return false;
+  }
+
+  stopRobot();
+
+  driveCalibrated(-ESCAPE_SPEED, -ESCAPE_SPEED);
+  delay(100);
+  stopRobot();
+
+  if (leftEdge && !rightEdge) {
+    driveCalibrated(ESCAPE_SPEED, -ESCAPE_SPEED);
+    delay(100);
+  }
+  else if (rightEdge && !leftEdge) {
+    driveCalibrated(-ESCAPE_SPEED, ESCAPE_SPEED);
+    delay(100);
+  }
+  else {
+    driveCalibrated(ESCAPE_SPEED, -ESCAPE_SPEED);
+    delay(130);
+  }
+
+  stopRobot();
+  lastTargetSide = 0;
+  lastTargetTime = 0;
+  return true;
+}
+
+// =====================================================
+// ALINEACIÓN AUTOMÁTICA
+// =====================================================
+
+void alignToTarget(int side) {
+  unsigned long timeout = millis();
+
+  while (millis() - timeout < 150) {
+    if (digitalRead(StarterPin) != STARTER_ACTIVE) {
+      stopRobot();
+      return;
+    }
+
+    if (checkAndEscapeEdge()) return;
+
+    if (opponentFrontAny()) {
+      return;
+    }
+
+    if (side < 0) {
+      driveCalibrated(-ALIGN_SPEED, ALIGN_SPEED);
+    } else {
+      driveCalibrated(ALIGN_SPEED, -ALIGN_SPEED);
+    }
+    delay(1);
+  }
+}
+
+// =====================================================
+// BÚSQUEDA EN MODO ATAQUE (AVANZA EN ARCOS)
+// =====================================================
+
+void searchOpponent() {
+  if (millis() - lastTargetTime > 200) {
+    lastTargetSide = 0;
+  }
+
+  if (lastTargetSide == 0) {
+    searchCounter++;
+    if (searchCounter > 15) {
+      searchLeftStep = !searchLeftStep;
+      searchCounter = 0;
+    }
+
+    if (searchLeftStep) {
+      driveCalibrated(25, 15);
+    } else {
+      driveCalibrated(15, 25);
+    }
+  } 
+  else if (lastTargetSide < 0) {
+    driveCalibrated(-22, 22);
+  } 
+  else if (lastTargetSide > 0) {
+    driveCalibrated(22, -22);
+  }
+}
+
+// =====================================================
+// ESCANEO EN MODO DEFENSA (PIVOTA SIN AVANZAR)
+// =====================================================
+
+void defenseScan() {
+  defenseCounter++;
+  // Alterna el giro cada 10 ciclos para mantenerse en el sitio
+  if (defenseCounter > 10) {
+    defenseLeftStep = !defenseLeftStep;
+    defenseCounter = 0;
+  }
+
+  if (defenseLeftStep) {
+    driveCalibrated(-20, 20); // Giro suave en su sitio a la izquierda
+  } else {
+    driveCalibrated(20, -20); // Giro suave en su sitio a la derecha
+  }
+}
+
+// =====================================================
+// MODO ATAQUE
+// =====================================================
+
+void attackMode() {
+  bool frontLeft  = opponentFrontLeft();
+  bool frontRight = opponentFrontRight();
+  bool diagLeft   = opponentDiagLeft();
+  bool diagRight  = opponentDiagRight();
+
+  if (frontLeft && frontRight) {
+    lastTargetSide = 0;
+    lastTargetTime = millis();
+    driveCalibrated(ATTACK_SPEED, ATTACK_SPEED);
+  }
+  else if (frontLeft) {
+    lastTargetSide = -1;
+    lastTargetTime = millis();
+    driveCalibrated(100, 65);
+  }
+  else if (frontRight) {
+    lastTargetSide = 1;
+    lastTargetTime = millis();
+    driveCalibrated(65, 100);
+  }
+  else if (diagLeft) {
+    lastTargetSide = -1;
+    lastTargetTime = millis();
+    alignToTarget(-1);
+  }
+  else if (diagRight) {
+    lastTargetSide = 1;
+    lastTargetTime = millis();
+    alignToTarget(1);
+  }
+  else {
+    searchOpponent();
+  }
+}
+
+// =====================================================
+// MODO DEFENSA (REACCIÓN RÁPIDA CON ESCANEO ESTÁTICO)
+// =====================================================
+
+void defenseMode() {
+  bool frontLeft  = opponentFrontLeft();
+  bool frontRight = opponentFrontRight();
+  bool diagLeft   = opponentDiagLeft();
+  bool diagRight  = opponentDiagRight();
+
+  // 1. Detección Frontal Completa -> Embestida al 100%
+  if (frontLeft && frontRight) {
+    lastTargetSide = 0;
+    lastTargetTime = millis();
+    driveCalibrated(DEFENSE_SPEED, DEFENSE_SPEED);
+  }
+  // 2. Detección Frontal Izquierda
+  else if (frontLeft) {
+    lastTargetSide = -1;
+    lastTargetTime = millis();
+    driveCalibrated(DEFENSE_SPEED, 40);
+  }
+  // 3. Detección Frontal Derecha
+  else if (frontRight) {
+    lastTargetSide = 1;
+    lastTargetTime = millis();
+    driveCalibrated(40, DEFENSE_SPEED);
+  }
+  // 4. Detección Diagonal Izquierda
+  else if (diagLeft) {
+    lastTargetSide = -1;
+    lastTargetTime = millis();
+    alignToTarget(-1);
+  }
+  // 5. Detección Diagonal Derecha
+  else if (diagRight) {
+    lastTargetSide = 1;
+    lastTargetTime = millis();
+    alignToTarget(1);
+  }
+  // 6. Sin detección -> Escaneo estático rotando izquierda/derecha
+  else {
+    defenseScan();
+  }
+}
+
+// =====================================================
+// CONFIGURACION INICIAL
+// =====================================================
+
+void setup() {
+  pinMode(Led1, OUTPUT);
+  pinMode(PIN_DIP_MODE, INPUT_PULLUP);
+  pinMode(StarterPin, INPUT);
+
+  pinMode(LeftSensor, INPUT);
+  pinMode(LeftDiagonalSensor, INPUT);
+  pinMode(RightDiagonalSensor, INPUT);
+  pinMode(RightSensor, INPUT);
+
+  pinMode(LeftLine, INPUT);
+  pinMode(RightLine, INPUT);
+
+  stopRobot();
+  lastTargetSide = 0;
+  lastTargetTime = 0;
+}
+
+// =====================================================
+// BUCLE PRINCIPAL
+// =====================================================
+
+void loop() {
+  if (digitalRead(StarterPin) != STARTER_ACTIVE) {
+    stopRobot();
+    
+    if (DEBUG_MODE_LED) {
+      digitalWrite(Led1, (millis() / 500) % 2 == 0 ? HIGH : LOW);
+    }
+    return;
+  }
+
+  bool defense = (digitalRead(PIN_DIP_MODE) == MODE_DEFENSE);
+
+  if (DEBUG_MODE_LED) {
+    digitalWrite(Led1, defense ? HIGH : LOW);
+  }
+
+  if (checkAndEscapeEdge()) {
+    lastTargetSide = 0;
+    lastTargetTime = 0;
+    return;
+  }
+
+  if (defense) {
+    defenseMode();
+  }
+  else {
+    attackMode();
+  }
+}
