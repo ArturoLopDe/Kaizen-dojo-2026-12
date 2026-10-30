@@ -1,1 +1,76 @@
+// =====================================================
+// PRUEBA DE SENSOR IR INDIVIDUAL (SELECCIONABLE)
+// =====================================================
 
+#include <xmotionV3.h>
+
+// ---------------- SELECCIONA EL SENSOR A PROBAR ----------------
+// Cambia este número para elegir qué sensor quieres probar:
+// 1 = Izquierdo (D4)
+// 2 = Diagonal Izquierdo (D2)
+// 3 = Diagonal Derecho (A4)
+// 4 = Derecho (A5)
+const int SENSOR_A_PROBAR = 1; 
+
+// ---------------- PINOUT HARDWARE ----------------
+const byte LeftSensor          = 4;  // D4 - Izquierdo
+const byte LeftDiagonalSensor  = 2;  // D2 - Diagonal Izquierdo
+const byte RightDiagonalSensor = A4; // A4 - Diagonal Derecho
+const byte RightSensor         = 1; // A5 - Derecho
+
+const byte Led1                = 8;  // D8 - LED indicador
+const byte OPPONENT_DETECTED   = HIGH;
+
+byte pinPrueba;
+String nombreSensor;
+
+void setup() {
+  xmotion.StopMotors(1);
+
+  pinMode(LeftSensor, INPUT);
+  pinMode(LeftDiagonalSensor, INPUT);
+  pinMode(RightDiagonalSensor, INPUT);
+  pinMode(RightSensor, INPUT);
+  pinMode(Led1, OUTPUT);
+
+  // Asignación según la opción elegida
+  if (SENSOR_A_PROBAR == 1) {
+    pinPrueba = LeftSensor;
+    nombreSensor = "IZQUIERDO (D4)";
+  } else if (SENSOR_A_PROBAR == 2) {
+    pinPrueba = LeftDiagonalSensor;
+    nombreSensor = "DIAG. IZQUIERDO (D2)";
+  } else if (SENSOR_A_PROBAR == 3) {
+    pinPrueba = RightDiagonalSensor;
+    nombreSensor = "DIAG. DERECHO (A4)";
+  } else if (SENSOR_A_PROBAR == 4) {
+    pinPrueba = RightSensor;
+    nombreSensor = "DERECHO (A5)";
+  }
+
+  Serial.begin(9600);
+  Serial.println("=========================================");
+  Serial.print("   PROBANDO ÚNICAMENTE SENSOR: ");
+  Serial.println(nombreSensor);
+  Serial.println("=========================================");
+  delay(1000);
+}
+
+void loop() {
+  // Lectura del sensor seleccionado (1 = Detecta, 0 = No detecta)
+  int estado = (digitalRead(pinPrueba) == OPPONENT_DETECTED) ? 1 : 0;
+
+  Serial.print("Estado ");
+  Serial.print(nombreSensor);
+  Serial.print(": ");
+  Serial.println(estado);
+
+  // El LED enciende cuando ese sensor específico pasa a 1
+  if (estado == 1) {
+    digitalWrite(Led1, HIGH);
+  } else {
+    digitalWrite(Led1, LOW);
+  }
+
+  delay(200); 
+}
