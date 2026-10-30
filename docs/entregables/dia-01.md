@@ -128,7 +128,7 @@ También disponible el archivo [`datos/inventario_materiales.csv`](../../datos/i
 | @melissa / MS01 | ¿El ToF detecta un objetivo mate a 30 cm? | Barrido con objetivo de prueba a distintas distancias | Lectura precisa hasta 28 cm; cae a partir de 30 cm | [participantes/MelissaZúñigaMiranda/dias/E1.md#kata0] | Ajustar umbral límite de ataque a 25 cm en código |
 
 **Integración entre subequipos:** Se validó la alimentación compartida a 5V para sensores y el pulso de paro por software (<100 ms).
-
+**Actividad Integradora. Expansión de una idea con IA** https://github.com/ArturoLopDe/Kaizen-dojo-2026-12/blob/84336cf754d4612cb3e5628bcecaf4a6ea7019e8/docs/ideacion-scamper-ia.md
 ## 7 · Cierre: contrato técnico y puerta de salida E1 (160–180 min)
 
 - [x] El objetivo colectivo tiene condición de éxito verificable.
