@@ -1,1 +1,60 @@
+#include <xmotion.h>
 
+// =====================================================
+// PRUEBA DE CALIBRACION - QTR-1RC (XMotion V3)
+// =====================================================
+
+// Pines de los sensores de borde QTR-1RC
+const byte QTR_LEFT  = A5;
+const byte QTR_RIGHT = A2;
+
+// Tiempo máximo de espera en microsegundos
+const unsigned int QTR_TIMEOUT_US = 2500;
+
+// Función para medir el tiempo de descarga en us
+unsigned int readQTR(byte pin) {
+  pinMode(pin, OUTPUT);
+  digitalWrite(pin, HIGH);
+  delayMicroseconds(10);
+
+  pinMode(pin, INPUT);
+  unsigned long startTime = micros();
+
+  while (digitalRead(pin) == HIGH) {
+    if (micros() - startTime >= QTR_TIMEOUT_US) {
+      return QTR_TIMEOUT_US;
+    }
+  }
+
+  return (unsigned int)(micros() - startTime);
+}
+
+void setup() {
+  Serial.begin(115200);
+  
+  // Aseguramos que los motores permanezcan apagados durante la prueba
+  xmotion.StopMotors(1);
+  
+  Serial.println("=========================================");
+  Serial.println("   CALIBRACION DE UMBRAL QTR-1RC        ");
+  Serial.println("=========================================");
+  Serial.println("Coloca el robot sobre la zona NEGRA y BLANCA");
+  Serial.println("para comparar las lecturas en us.");
+  Serial.println("-----------------------------------------");
+  delay(2000);
+}
+
+void loop() {
+  unsigned int valLeft  = readQTR(QTR_LEFT);
+  unsigned int valRight = readQTR(QTR_RIGHT);
+
+  // Impresión de valores en el Monitor Serie
+  Serial.print("QTR IZQUIERDO: ");
+  Serial.print(valLeft);
+  Serial.print(" us | QTR DERECHO: ");
+  Serial.print(valRight);
+  Serial.println(" us");
+
+  // Pequeña pausa para hacer legible la salida serie
+  delay(150); 
+}
