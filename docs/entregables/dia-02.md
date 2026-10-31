@@ -4,7 +4,7 @@ formato: "Entregable diario G2"
 evidencia: "E2"
 dia: 2
 responsable_registro: "jamón"
-estado: "PENDIENTE"
+estado: Melissa Zúñiga
 fecha: "2026-10-27"
 revision_docente: "PENDIENTE"
 ---
