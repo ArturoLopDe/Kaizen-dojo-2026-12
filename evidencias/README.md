@@ -1,10 +1,8 @@
 # Índice de evidencias multimedia
 
-No subir videos pesados directamente. Guardar los archivos en una carpeta institucional con acceso controlado y enlazarlos aquí.
-
 | Día / E | Alcance | Tipo | Enlace (acceso controlado) | Fecha | Qué demuestra |
 |---|---|---|---|---|---|
-| E2 | MS01 | Foto/Video | [Enlace] | [fecha] | Primera versión |
+| E2 | MS01 | Video | [[Enlace]](https://github.com/ArturoLopDe/Kaizen-dojo-2026-12/blob/6ac2ffb5ad58d99529ea752628616c1acbc213d4/evidencias/calibraci%C3%B3n%20de%20motores.md) | 29/10/2026 | Calibración de motores |
 | E3 | MS01 | Video/CSV | [Enlace] | [fecha] | Ciclo 1 |
 | E4 | MS01 | Video/CSV | [Enlace] | [fecha] | Ciclo 2 |
 | E5 | MS01 | Video | [Enlace] | [fecha] | Demo |
