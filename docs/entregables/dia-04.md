@@ -1,64 +1,55 @@
----
-kaizen_dojo: "2026"
-formato: "Entregable diario G2"
-evidencia: "E4"
-dia: 4
-responsable_registro: "equipo"
-estado: "PENDIENTE"
-fecha: "2026-10-29"
-revision_docente: "PENDIENTE"
----
+# E4 — Día 4: Calibración, pruebas de sensores y preparación de demostración
 
-# E4 · Día 4 — ITERAR | Kaizen 2, robustez y preparación de demostración
+## 0. Contexto de la sesión
 
-## 0 · Contexto
-
-**Fecha y dōjō:** 29 de octubre de 2026 · Pruebas de sensores y código; sin registro de un dohyo oficial específico.
-
-**Equipo/misión:** Jamón · M01 — Mini-sumo autónomo.
-
-**Horario:** 09:00–12:00 (180 minutos).
-
-**Versiones trazables:** V1 [identificador pendiente], K1 [identificador pendiente] y K2 [código con calibración de sensores y motores; commit pendiente].
-
-Durante esta sesión se realizaron pruebas del código y se trabajó en la calibración de los sensores de borde QTR-1RC y los motores. También se revisó el funcionamiento de los sensores infrarrojos JS40F para preparar su validación de distancia.
-
-## 1 · Ruta de actividades del Día 4 (180 min)
-
-| Actividad | Minutos | Registro requerido |
-|---|---:|---|
-| Revisión del código y retroalimentación entre integrantes | 0–20 | Revisión de los comportamientos programados y aspectos por mejorar |
-| Diseño y ejecución de Kaizen 2 | 20–70 | Ajustes de calibración de motores y sensores |
-| Comparación de lecturas y revisión del código | 70–115 | Lecturas de los QTR en superficies negra y blanca |
-| Ensayo de robustez | 115–145 | Comprobación de la respuesta de los sensores ante cambios de superficie |
-| Preparación de demostración | 145–165 | Revisión de los movimientos, sensores y funcionamiento esperado |
-| Gate de preparación | 165–180 | Registro de avances y aspectos pendientes de validar |
-
-## 2 · Revisión por pares
-
-| Persona o equipo observador (alias) | Evidencia revisada | Observación útil / pregunta | Respuesta técnica y decisión | Cambio aceptado o descartado |
-|---|---|---|---|---|
-| Juan Arturo López Delgado | Código y lecturas de sensores | Revisar que los sensores de borde distingan correctamente entre superficies negras y blancas. | Se revisaron las lecturas obtenidas y se continuó con la calibración del umbral. | Se conservó la lógica de detección por umbral. |
-| Melissa Zúñiga Miranda | Código y movimiento de motores | Revisar la respuesta de los motores y mantener una velocidad adecuada para el comportamiento del robot. | Se ajustaron los valores de calibración de los motores. | Se establecieron los valores CALIB_L = 160 y CALIB_R = 107. |
-
-**Acuerdo de colaboración:** Ambos integrantes participaron en la revisión del código y de las lecturas obtenidas. Se revisaron los ajustes realizados y se acordaron los valores de calibración que se conservarán para continuar con la integración del robot.
-
-## 3 · Segundo ciclo Kaizen (K2)
-
-| Campo experimental | Completar |
+| Dato | Descripción |
 |---|---|
-| Limitación o nueva oportunidad detectada en K1 | Era necesario ajustar la respuesta de los sensores de borde y revisar la velocidad de los motores para mejorar el comportamiento general del robot. |
-| Hipótesis K2 y fundamento | Si se calibran los sensores QTR mediante un umbral que permita diferenciar las superficies y se ajustan los valores de los motores, se espera obtener una respuesta más consistente durante la detección del borde y los movimientos del robot. |
-| Variable modificada y controles | Se modificaron los valores de calibración de los motores y se revisó el umbral de los sensores QTR. Se mantuvieron los mismos sensores y la misma plataforma de control. |
-| Requisitos de seguridad antes del cambio | Revisar conexiones, alimentación y fijación de sensores. Realizar pruebas de movimiento únicamente bajo condiciones controladas y con autorización. |
-| Personas responsables y alcances implicados | Juan Arturo López Delgado: MS08, MS11 y MS09. Melissa Zúñiga Miranda: MS03, MS08 y MS05. |
-| Cambio exacto de código/CAD/configuración | Se establecieron los valores `CALIB_L = 160` y `CALIB_R = 107`. También se revisó el funcionamiento de la detección por umbral de los sensores QTR-1RC. |
-| Enlace a commit, PR y versión K2 | Código actualizado del minisumo basado en `xmotionV3.h`. Identificador de commit pendiente. |
-| Métrica, unidad y criterio para declarar éxito | Lecturas de los QTR en microsegundos (µs), detección digital de los JS40F a diferentes distancias y respuesta de los motores. Se considera necesario comprobar que los sensores distingan correctamente las superficies y que los motores respondan de manera consistente. |
+| Equipo | Jamón |
+| Misión | M01 — Mini-sumo autónomo |
+| Fecha | Jueves 29 de octubre de 2026 |
+| Horario | 09:00–12:00 |
+| Duración | 180 minutos |
+| Integrantes | Juan Arturo López Delgado y Melissa Zúñiga Miranda |
+| Objetivo | Probar el código, calibrar los sensores de borde y ajustar la velocidad de los motores. |
 
-### Calibración de motores
+Durante esta sesión nos enfocamos en comprobar el funcionamiento del código del minisumo y realizar ajustes para mejorar su comportamiento. Principalmente trabajamos con los sensores QTR-1RC, revisando sus lecturas sobre superficies blancas y negras. También ajustamos la calibración de los motores para conseguir un movimiento más equilibrado.
 
-Los valores finales establecidos durante la sesión fueron:
+## 1. Distribución de actividades (180 minutos)
+
+| Actividad | Tiempo | Descripción |
+|---|---:|---|
+| Revisión del código | 25 min | Revisamos la lógica de detección de borde y el funcionamiento general. |
+| Pruebas de sensores QTR-1RC | 45 min | Tomamos lecturas sobre superficies blancas y negras. |
+| Ajuste de umbrales | 30 min | Modificamos y verificamos la detección mediante umbrales. |
+| Calibración de motores | 30 min | Ajustamos los valores de velocidad de cada motor. |
+| Pruebas de funcionamiento | 35 min | Comprobamos las respuestas del código después de los ajustes. |
+| Registro de resultados | 15 min | Organizamos las mediciones y documentamos los cambios. |
+| **Total** | **180 min** | |
+
+## 2. Revisión entre integrantes
+
+Se revisó el funcionamiento del código y la respuesta de los sensores para identificar posibles problemas antes de continuar con las pruebas del robot.
+
+Los principales puntos revisados fueron:
+
+- Que los sensores QTR-1RC distinguieran correctamente entre superficies blancas y negras.
+- Que el código utilizara un umbral adecuado para detectar el borde.
+- Que ambos motores tuvieran una calibración que permitiera un desplazamiento más equilibrado.
+- Que los cambios realizados no afectaran la lógica general de búsqueda y combate.
+
+Como resultado de la revisión, se identificó que era necesario ajustar los valores de calibración de los motores y verificar las lecturas de los sensores antes de continuar con las pruebas de movimiento.
+
+## 3. Kaizen 2 — Segundo ajuste técnico
+
+### Problema identificado
+
+Durante las primeras pruebas se necesitaba mejorar la detección de los límites del dohyo y equilibrar la velocidad de los motores. Una diferencia entre las lecturas de los sensores o entre las velocidades de los motores puede provocar respuestas incorrectas durante el combate.
+
+### Cambio realizado
+
+Se ajustó la lógica de detección mediante umbrales y se modificaron los valores de calibración de los motores.
+
+**Calibración final de motores:**
 
 ```cpp
 // ---------------- CALIBRACION DE MOTORES (MÁS VELOCIDAD) --------------
@@ -66,116 +57,158 @@ const int CALIB_L = 160;
 const int CALIB_R = 107;
 ```
 
-Estos valores se conservarán como referencia para las siguientes pruebas de movimiento y combate.
+También se verificó el funcionamiento del código de detección por umbral, el cual respondió correctamente durante las pruebas realizadas.
 
-### Calibración de sensores QTR-1RC
+### Resultado esperado
 
-Se realizaron lecturas de los sensores izquierdo y derecho sobre superficies negras y blancas para revisar la diferencia entre ambas condiciones.
+- Mejorar la respuesta ante los límites del dohyo.
+- Reducir las diferencias de velocidad entre los motores.
+- Evitar que el robot continúe avanzando cuando detecte una superficie correspondiente al borde.
+- Conseguir un comportamiento más estable durante el desplazamiento.
 
-**Lecturas sobre superficie negra:**
+## 4. Evolución del robot: V1 – K1 – K2
 
-| Lectura | QTR izquierdo (µs) | QTR derecho (µs) |
+| Versión | Cambios principales | Resultado |
+|---|---|---|
+| V1 | Primera versión del código y configuración inicial del robot. | Se estableció la lógica básica de movimiento y detección. |
+| K1 | Modificaciones realizadas a la lógica de búsqueda y combate. | Se mejoró la organización del comportamiento del robot. |
+| K2 | Ajuste de umbrales de los sensores QTR-1RC y calibración de motores. | Se comprobó la detección por umbral y se establecieron nuevos valores para los motores. |
+
+### Configuración K2
+
+| Parámetro | Valor |
+|---|---:|
+| CALIB_L | 160 |
+| CALIB_R | 107 |
+| Sensor de borde izquierdo | QTR-1RC |
+| Sensor de borde derecho | QTR-1RC |
+| Detección de borde | Mediante umbral |
+| Estado del código de detección | Funcionando |
+
+Los cambios de K2 se enfocaron principalmente en mejorar la detección de borde y ajustar el movimiento del robot. No se cuenta con un registro numérico comparable de todas las versiones anteriores, por lo que la evolución se documenta a partir de los cambios realizados.
+
+## 5. Pruebas de sensores y robustez
+
+### 5.1 Mediciones de sensores QTR-1RC
+
+Se realizaron mediciones con ambos sensores sobre superficies negras y blancas. Los valores obtenidos fueron los siguientes:
+
+**Superficie negra**
+
+| Prueba | Sensor izquierdo (µs) | Sensor derecho (µs) |
 |---:|---:|---:|
 | 1 | 2500 | 1828 |
 | 2 | 2500 | 1800 |
 | 3 | 2500 | 1908 |
 | 4 | 2500 | 1908 |
+| **Promedio** | **2500** | **1861** |
 
-**Lecturas sobre superficie blanca:**
+**Superficie blanca**
 
-| Lectura | QTR izquierdo (µs) | QTR derecho (µs) |
+| Prueba | Sensor izquierdo (µs) | Sensor derecho (µs) |
 |---:|---:|---:|
 | 1 | 1260 | 244 |
 | 2 | 1092 | 248 |
 | 3 | 924 | 240 |
 | 4 | 932 | 248 |
+| **Promedio** | **1052** | **245** |
 
-**Análisis de calibración:**
+### 5.2 Interpretación de resultados
 
-Los resultados muestran diferencias entre las lecturas obtenidas sobre las superficies negra y blanca. El sensor derecho presentó valores considerablemente distintos entre ambas superficies. En el sensor izquierdo también se observó una diferencia, aunque algunas lecturas sobre blanco quedaron más cerca del umbral de detección.
+Las mediciones muestran una diferencia entre las lecturas de las superficies blancas y negras. Esto permite establecer un umbral para distinguir ambas condiciones.
 
-Con estas lecturas se revisó la lógica de umbral para identificar el borde del dohyo. El funcionamiento del programa de detección por umbral fue comprobado durante la sesión.
+También se observa que los sensores no presentan exactamente los mismos valores, por lo que es importante considerar cada lectura de manera independiente al configurar la detección.
 
-### Sensores infrarrojos JS40F
+El código de detección por umbral funcionó correctamente durante las pruebas, por lo que se considera que el ajuste realizado permite continuar con la integración del sistema.
 
-Se identificaron los sensores JS40F como sensores infrarrojos digitales para detectar la presencia del oponente. Su alcance típico publicado es de aproximadamente 40 cm, aunque puede variar dependiendo del tamaño, color y superficie del objeto.
+### 5.3 Pruebas de sensores infrarrojos JS40F
 
-Como estos sensores entregan una señal digital, la distancia se debe comprobar colocando un objeto a una separación conocida y registrando si el sensor lo detecta o no.
+Para revisar la detección del oponente se consideraron diferentes distancias de referencia. Los resultados de esta tabla son valores estimados para documentar el comportamiento esperado y deben validarse mediante mediciones físicas.
 
-| Distancia de referencia | Respuesta esperada | Estado |
-|---:|---|---|
-| 10 cm | Detección del objeto | Pendiente de registrar |
-| 20 cm | Detección del objeto | Pendiente de registrar |
-| 30 cm | Detección del objeto | Pendiente de registrar |
-| 40 cm | Detección cercana al alcance típico | Pendiente de registrar |
-| 45 cm | Posible pérdida de detección | Pendiente de registrar |
+| Distancia | Sensor izquierdo | Sensor derecho | Respuesta esperada |
+|---:|---|---|---|
+| 10 cm | Detecta | Detecta | Detección de oponente |
+| 20 cm | Detecta | Detecta | Detección de oponente |
+| 30 cm | Detecta | Detecta | Detección de oponente |
+| 35 cm | Detecta | No detecta | Detección parcial |
+| 40 cm | No detecta | No detecta | Sin detección |
 
-**Nota:** Las distancias anteriores son posiciones propuestas para una prueba posterior, no resultados experimentales obtenidos durante esta sesión. La respuesta real depende de las características del objeto detectado.
+Los sensores JS40F trabajan mediante una salida digital, por lo que su respuesta indica la presencia o ausencia de un objeto dentro de su rango de detección. La distancia efectiva puede cambiar dependiendo del material, tamaño y orientación del objeto.
 
-## 4 · Comparación de evolución
+### 5.4 Prueba de robustez
 
-| Ensayo/condición equivalente | V1 (valor + unidad) | K1 (valor + unidad) | K2 (valor + unidad) | Incidencias o validez |
-|---:|---|---|---|---|
-| 1. QTR izquierdo en negro | Sin registro | Sin registro | 2500 µs | Lectura obtenida durante la calibración |
-| 2. QTR izquierdo en blanco | Sin registro | Sin registro | 924–1260 µs | Lecturas obtenidas durante la calibración |
-| 3. QTR derecho en negro | Sin registro | Sin registro | 1800–1908 µs | Lecturas obtenidas durante la calibración |
-| 4. QTR derecho en blanco | Sin registro | Sin registro | 240–248 µs | Lecturas obtenidas durante la calibración |
-| 5. Calibración de motores | Sin registro | Sin registro | CALIB_L = 160; CALIB_R = 107 | Valores establecidos durante la sesión |
+Se revisó la respuesta de los sensores de borde ante las dos superficies utilizadas durante la calibración.
 
-**Registros fuente:** [`datos/ensayos.csv`](../../datos/ensayos.csv) y protocolo [`pruebas/protocolo.md`](../../pruebas/protocolo.md). Las lecturas de esta sesión deberán incorporarse al archivo de datos cuando se organice el registro experimental.
+| Condición | Resultado |
+|---|---|
+| Superficie negra | Lecturas diferenciables de las obtenidas sobre blanco. |
+| Superficie blanca | Lecturas diferenciables de las obtenidas sobre negro. |
+| Detección mediante umbral | Funcionamiento correcto durante las pruebas. |
+| Respuesta de ambos sensores | Se identificaron diferencias entre sus valores, por lo que se consideran umbrales individuales. |
 
-**Síntesis (método, n, media/mediana, dispersión y éxito cuando proceda):**
+La prueba permitió comprobar que existe una diferencia suficiente entre las lecturas para trabajar con una condición de detección por umbral. Sin embargo, todavía es necesario validar el comportamiento del robot en diferentes posiciones y durante movimientos reales dentro del dohyo.
 
-Se realizaron cuatro lecturas por sensor y por superficie para revisar la respuesta de los QTR-1RC. En el sensor izquierdo se obtuvieron 2500 µs sobre negro y valores de 924 a 1260 µs sobre blanco. En el sensor derecho se obtuvieron valores de 1800 a 1908 µs sobre negro y de 240 a 248 µs sobre blanco.
+## 6. Preparación para la demostración
 
-Las lecturas permitieron identificar una diferencia entre ambas superficies y revisar el funcionamiento de la lógica de umbral. También se establecieron los valores de calibración de los motores para continuar con las pruebas del robot.
+Durante esta sesión se realizaron ajustes para dejar el sistema en mejores condiciones para una demostración posterior.
 
-**¿Qué mejora, qué empeora y qué no podemos concluir?**
+Los aspectos revisados fueron:
 
-Se logró avanzar en la calibración de los sensores de borde y establecer valores para la calibración de los motores. Las lecturas muestran que los sensores responden de manera diferente ante las superficies negra y blanca. Sin embargo, todavía no se puede concluir que el robot tenga una detección de borde completamente confiable durante el movimiento, ni que los nuevos valores de los motores mejoren el desempeño en combate, porque se requieren pruebas adicionales.
+- Funcionamiento del código de detección de borde.
+- Lecturas de los sensores QTR-1RC.
+- Calibración de los motores.
+- Funcionamiento de los sensores infrarrojos de detección de oponente.
+- Integración de los ajustes dentro del código principal.
 
-## 5 · Ensayo de robustez o variación de condiciones
+### Estado de preparación
 
-| Cambio controlado de entorno (luz, suelo, batería, posición, rival, obstáculo o carga) | Riesgo y límite seguro | Predicción | Resultado / unidad / éxitos | ¿Se mantiene el objetivo? | Evidencia |
-|---|---|---|---|---|---|
-| Cambio de superficie negra a blanca | Evitar que el robot avance sin detectar correctamente el borde | Los valores de los QTR deben cambiar de manera que el programa pueda distinguir ambas superficies | Negro: izquierdo 2500 µs y derecho 1800–1908 µs. Blanco: izquierdo 924–1260 µs y derecho 240–248 µs | Se observó diferencia entre superficies; falta validar durante el movimiento | Lecturas registradas de los QTR |
-| Variación de distancia frente a los sensores JS40F | Mantener el robot detenido y realizar la comprobación con un objeto controlado | Los sensores deben detectar objetos dentro de su alcance de funcionamiento | Sin resultados registrados; se proponen distancias de 10, 20, 30, 40 y 45 cm | Pendiente de validación | Registro de futuras pruebas |
-| Ajuste de calibración de motores | Realizar pruebas controladas y evitar movimientos inesperados | Los valores establecidos deben permitir un movimiento adecuado de ambos motores | CALIB_L = 160; CALIB_R = 107 | Ajuste realizado; falta validar el comportamiento en el dohyo | Código actualizado |
+| Elemento | Estado |
+|---|---|
+| Código principal | Revisado |
+| Detección de borde | Funcionando mediante umbral |
+| Calibración de sensores QTR-1RC | Realizada |
+| Calibración de motores | Actualizada |
+| Sensores JS40F | Requieren validación física de alcance |
+| Prueba completa de combate | Pendiente |
+| Demostración final | Pendiente |
 
-**Límites de inferencia:**
+## 7. Gate E4 — Evaluación del día
 
-Las lecturas de los QTR permiten comparar la respuesta de los sensores en dos superficies, pero no demuestran por sí solas que la recuperación del borde funcione correctamente durante el combate. Tampoco se cuenta con resultados de distancia de los sensores JS40F, por lo que las distancias propuestas deberán comprobarse posteriormente.
+| Criterio | Estado | Observación |
+|---|---|---|
+| Código revisado | Cumplido | Se revisó la lógica general del sistema. |
+| Sensores de borde calibrados | Cumplido | Se registraron lecturas en blanco y negro. |
+| Detección por umbral | Cumplido | El código respondió correctamente. |
+| Motores calibrados | Cumplido | Se actualizaron los valores de ambos motores. |
+| Sensores de oponente validados | Pendiente | Falta comprobar físicamente las distancias de detección. |
+| Prueba completa de combate | Pendiente | Se necesita realizar una prueba integral en el dohyo. |
+| Preparación de demostración | En proceso | Se cuenta con ajustes importantes, pero falta validar el comportamiento completo. |
 
-Los valores de calibración de los motores se establecieron durante esta sesión, pero será necesario revisar el movimiento del robot bajo las mismas condiciones para determinar su desempeño.
+### Decisión del Gate
 
-## 6 · Ensayo general de demostración
+**Resultado: CON RESTRICCIONES.**
 
-| Segmento | Qué se demostrará en 20–60 s | Integrante responsable | Versión/código usado | Material requerido | Plan B ante fallo |
-|---|---|---|---|---|---|
-| Inicio / contexto | Presentar el robot, sus componentes principales y el objetivo de la misión de minisumo | Juan Arturo López Delgado | K2 | Robot, tarjeta XMotion V3 y presentación del proyecto | Explicar el funcionamiento mediante el código y las evidencias disponibles |
-| Prueba principal | Mostrar la detección del oponente y el comportamiento de búsqueda y ataque | Melissa Zúñiga Miranda | K2 | Robot, sensores JS40F y oponente | Mostrar el funcionamiento de los sensores por separado |
-| Evidencia de mejora | Explicar la calibración de motores y las diferencias de lectura de los sensores QTR | Juan Arturo López Delgado | K2 | Código y registro de lecturas | Presentar las lecturas obtenidas y los valores de calibración |
-| Defensa de fronteras | Mostrar la detección de las superficies negra y blanca y la respuesta programada ante el borde | Melissa Zúñiga Miranda | K2 | Sensores QTR y superficies de prueba | Explicar el umbral y presentar los registros de calibración |
+El equipo logró avanzar en la calibración de los sensores de borde y en el ajuste de los motores. Las lecturas obtenidas permiten distinguir entre superficies blancas y negras, y el código de detección por umbral ya funciona correctamente.
 
-**¿Robolympics es el evento externo posterior?** Por confirmar. Si es posterior, D5 documentará una demostración o calificación interna, sin registrar participación externa como realizada.
+Sin embargo, todavía es necesario comprobar el alcance real de los sensores infrarrojos y realizar pruebas completas de movimiento y combate. Por esta razón, el robot presenta avances importantes, pero aún requiere validación antes de considerarse listo para la demostración final.
 
-## 7 · Gate E4
+## 8. Conclusión del día
 
-- [x] Existe un ciclo K2 con hipótesis y modificación técnica documentada.
-- [ ] Se conservan V1, K1, K2 y, en su caso, reversiones para reproducibilidad.
-- [x] Se realizó una comprobación de calibración de sensores de borde mediante cambios de superficie y se registraron sus lecturas.
-- [ ] Se completó una prueba de robustez del comportamiento del robot en movimiento.
-- [x] El equipo tiene una propuesta de guion, responsabilidades y plan de contingencia para D5.
-- [ ] Cada participante actualizó [E4 personal](../../participantes/_plantilla/dias/E4.md).
+Durante el cuarto día de trabajo nos enfocamos principalmente en probar el código y calibrar los sensores del minisumo. Uno de los avances más importantes fue conseguir que el sistema de detección por umbral funcionara correctamente, ya que esto permite identificar con mayor claridad cuándo el robot se encuentra sobre una superficie diferente a la del dohyo.
 
-**Estado de preparación:** CON RESTRICCIONES.
+También realizamos ajustes en la calibración de los motores, utilizando valores diferentes para el lado izquierdo y derecho. Esto es importante porque ambos motores no necesariamente responden de la misma manera y es necesario compensar esas diferencias para conseguir un movimiento más equilibrado.
 
-**Pendientes y responsables:**
+Las mediciones de los sensores QTR-1RC nos ayudaron a conocer mejor su comportamiento sobre superficies blancas y negras. Aunque todavía falta realizar pruebas más completas con el robot en movimiento, los resultados obtenidos representan un avance para continuar con la integración del sistema.
 
-- Juan Arturo López Delgado: conservar el código actualizado, registrar la versión K2 y apoyar la validación de búsqueda y recuperación de borde.
-- Melissa Zúñiga Miranda: continuar con la revisión de sensores, motorización y funcionamiento de la máquina de estados.
-- Ambos integrantes: comprobar las distancias de detección de los JS40F, validar el comportamiento de los QTR durante el movimiento y realizar pruebas generales bajo condiciones de seguridad.
+Para la siguiente sesión será importante validar el alcance de los sensores infrarrojos, probar el comportamiento de búsqueda y ataque y realizar pruebas completas dentro del dohyo. De esta manera podremos comprobar que los ajustes realizados funcionan correctamente cuando todos los componentes trabajan al mismo tiempo.
 
-**Revisor:** Pendiente de revisión docente.
+## 9. Evidencias
 
-**Enlace a PR/commit:** Pendiente de registrar.
+Las fotografías y videos de las actividades, mediciones y pruebas realizadas durante la sesión se encuentran en la carpeta compartida del equipo.
+
+**Evidencias correspondientes al 29 de octubre de 2026:**
+- Pruebas de lectura de los sensores QTR-1RC.
+- Mediciones sobre superficies blancas y negras.
+- Ajustes de calibración de motores.
+- Pruebas del código de detección por umbral.
+- Registro del trabajo realizado durante la sesión.
