@@ -104,7 +104,7 @@ Las lecturas muestran una diferencia clara entre los dos grupos de valores. Esto
 | Juan Arturo López Delgado | MS08 FSM combate, MS11 recuperación de borde y MS09 estrategia de búsqueda | Modificación del código, mejora de estrategia defensiva, calibración de sensores e implementación del arrancador. Evidencias en carpeta compartida. | Integrar todos los ajustes y comprobar su funcionamiento en el nuevo dohyo. | Ajustar la estrategia de combate, calibrar los sensores QTR-1RC e implementar el arrancador en otra salida. | Demostración del minisumo, que logró ganar el combate. | Se observó el funcionamiento correcto del robot durante la demostración. |
 | Melissa Zúñiga Miranda | MS03 motorización, MS08 FSM y MS05 sensores de borde | Participación en los ajustes y pruebas finales del robot. Evidencias en carpeta compartida. | Validar el comportamiento final del robot con las condiciones del nuevo dohyo. | Participar en la calibración y comprobación del sistema integrado antes de la demostración. | Demostración final del robot durante el combate. | Se observó el funcionamiento correcto del robot durante la demostración. |
 
-**Ver portafolios individuales:** `participantes/juan/dias/E5.md` y `participantes/melissa/dias/E5.md`.
+**Ver portafolios individuales:** `participantes/ArturoLopDe/compromiso-kaizen-juan-arturo-lopez-delgado.md` y `participantes/melissa/dias/E5.md`.
 
 ## 5 · Evaluación de la experiencia y cierre Design Thinking
 
