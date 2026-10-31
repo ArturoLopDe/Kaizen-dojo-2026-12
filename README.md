@@ -1,4 +1,3 @@
-ahora has esta:
 \# KAIZEN DŌJŌ 2026 · Nuestro repositorio de misión\
 \
 \> \*\*Equipo:\*\* \`[nombre-del-equipo]\` · \*\*Plataforma:\*\* \`[M01 / M03 / M04 / M05]\` · \*\*Dōjō (salón/taller):\*\* \`[por confirmar en E1]\`  \
